@@ -1,0 +1,50 @@
+{% extends "app_main_site/base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4 col-12">
+            <h5>Full name</h5>
+        </div>
+        <div class="col-md-8 col-12">
+            <p >{{profile.full_name }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-12">
+            <h5>Badge</h5>
+        </div>
+        <div class="col-md-8 col-12">
+            <p >{{profile.badge}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-12">
+            <h5>Position</h5>
+        </div>
+        <div class="col-md-8 col-12">
+            <p >{{profile.position}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-12">
+            <h5>Area</h5>
+        </div>
+        <div class="col-md-8 col-12">
+            <p >{{profile.area}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-12">
+            <h5>Line manager</h5>
+        </div>
+        <div class="col-md-8 col-12">
+            <p >{{profile.line_manager}}</p>
+        </div>
+    </div>
+{% endblock%}

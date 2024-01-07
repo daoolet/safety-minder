@@ -1,0 +1,56 @@
+{% extends "app_main_site/base.html" %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+    <form action="{% url 'app_main_site:registration' %}" method="post">
+        {% csrf_token %}
+        <h4 style="color: red;">{{ error_message }}</h4>
+        {% if form.errors %}
+            <ul class="errorlist" style="color: red;">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div id="form-group-register">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Full name</label>
+                <input name="full_name" type="text" class="form-control" id="full_name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Badge</label>
+                <input name="badge" type="text" class="form-control" id="badge">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Position</label>
+                <input name="position" type="text" class="form-control" id="position">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Area</label>
+                <input name="area" type="text" class="form-control" id="area">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Line manager</label>
+                <input name="line_manager" type="text" class="form-control" id="line_manager">
+            </div>
+            <div class="form-group">
+                <label for="password1">Password</label>
+                <input name="password1" type="password" class="form-control" id="password1">
+            </div>
+            <div class="form-group">
+                <label for="password2">Password confirmation</label>
+                <input name="password2" type="password" class="form-control" id="password2">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary mb-2">Sign up</button>
+            </div>
+        </div>        
+    </form>
+{% endblock %}
