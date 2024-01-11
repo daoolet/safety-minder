@@ -1,0 +1,15 @@
+{% extends "app_main_site/base.html" %}
+
+{% block title %}Update -pofile{% endblock %}
+
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        {{field.label_tag}} {{field}}
+        <br>
+    {% endfor %}
+    <button type="submit">Update profile</button>
+</form>
+{% endblock%}

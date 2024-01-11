@@ -7,7 +7,7 @@ from .models import CustomUser
 class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('email', 'full_name', 'badge', 'position', 'area', 'line_manager')
+        fields = ('email', 'full_name', 'position', 'area', 'line_manager')
 
         
 class RegisterUserForm(UserCreationForm):

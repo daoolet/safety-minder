@@ -47,4 +47,8 @@
             <p >{{profile.line_manager}}</p>
         </div>
     </div>
+
+    <a href="{% url 'app_main_site:update_profile' %}">
+        <button type="button" class="btn btn-outline-info">Update</button>
+    </a>
 {% endblock%}

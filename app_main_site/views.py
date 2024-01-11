@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.views import View
 from django.views.generic import CreateView
 
 from django.contrib.auth import login, authenticate, logout
@@ -17,7 +17,7 @@ def custom_registration(request):
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("app_main_site: home")
+            return redirect("app_main_site:home")
     else:
         form = RegisterUserForm()
 
@@ -54,14 +54,17 @@ def profile(request):
     }
     return render(request, "app_main_site/profile.html", context)
 
-def update_profile(request):
-    current_profile = get_object_or_404(CustomUser, pk=request.user.id)
-    if request.method == 'POST':
-        updated_form = UpdateProfileForm(request.POST, instance=current_profile)
+class UpdateProfile(View):
+    def get(self, request):
+        current_profile = get_object_or_404(CustomUser, pk=request.user.id)
+        form = UpdateProfileForm(instance=current_profile)
+        return render(request, "app_main_site/update_profile.html", {"form": form})
+    
+    def post(self, request):
+        current_profile = get_object_or_404(CustomUser, pk=request.user.id)
+        form = UpdateProfileForm(request.POST, instance=current_profile)
 
-        if updated_form.is_valid():
-            updated_form.save()
-            return redirect('app_main_site:profile')
-    else:
-        updated_form = UpdateProfileForm(instance=current_profile)
-        return render(request, "app_main_site/profile.html", {"updated_form": updated_form})
+        if form.is_valid():
+            form.save()
+        
+        return HttpResponseRedirect(reverse("app_main_site:profile", args=()))
