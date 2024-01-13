@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseBadRequest
 from django.urls import reverse
-from django.views import View
-from django.views.generic import CreateView
+from django.forms.models import model_to_dict
 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, permission_required
 
-from app_users.forms import RegisterUserForm, LoginUserForm, UpdateProfileForm
+from app_users.forms import RegisterUserForm, LoginUserForm, ProfileForm
 from app_users.models import CustomUser
 
 
@@ -48,23 +47,20 @@ def home(request):
     return render(request, "app_main_site/home.html", context)
 
 def profile(request):
-    profile = get_object_or_404(CustomUser, pk=request.user.id)
+    profile = ProfileForm(data=model_to_dict(CustomUser.objects.get(pk=request.user.id)))
     context = {
         "profile": profile
     }
     return render(request, "app_main_site/profile.html", context)
 
-class UpdateProfile(View):
-    def get(self, request):
-        current_profile = get_object_or_404(CustomUser, pk=request.user.id)
-        form = UpdateProfileForm(instance=current_profile)
-        return render(request, "app_main_site/update_profile.html", {"form": form})
     
-    def post(self, request):
-        current_profile = get_object_or_404(CustomUser, pk=request.user.id)
-        form = UpdateProfileForm(request.POST, instance=current_profile)
-
+def update_profile(request):
+    current_profile = get_object_or_404(CustomUser, pk=request.user.id)   
+    if request.method == "POST":    
+        form = ProfileForm(request.POST, instance=current_profile)
         if form.is_valid():
             form.save()
-        
-        return HttpResponseRedirect(reverse("app_main_site:profile", args=()))
+            return redirect(reverse("app_main_site:profile"))
+    else:
+        form = ProfileForm(instance=current_profile)
+        return render(request, "app_main_site/update_profile.html", {"form": form})

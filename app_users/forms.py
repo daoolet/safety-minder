@@ -4,10 +4,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 
 from .models import CustomUser
 
-class UpdateProfileForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('email', 'full_name', 'position', 'area', 'line_manager')
+        fields = ('email', 'full_name', 'badge', 'position', 'area', 'line_manager')
 
         
 class RegisterUserForm(UserCreationForm):

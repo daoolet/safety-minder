@@ -4,7 +4,18 @@
 
 
 {% block content %}
-    <div class="row">
+
+    {% for item in profile %}
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <h5>{{ item.label }}</h5>
+            </div>
+            <div class="col-md-8 col-12">
+                <p>{{ item.data }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    <!-- <div class="row">
         <div class="col-md-4 col-12">
             <h5>Full name</h5>
         </div>
@@ -46,7 +57,7 @@
         <div class="col-md-8 col-12">
             <p >{{profile.line_manager}}</p>
         </div>
-    </div>
+    </div> -->
 
     <a href="{% url 'app_main_site:update_profile' %}">
         <button type="button" class="btn btn-outline-info">Update</button>

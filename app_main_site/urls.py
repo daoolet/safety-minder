@@ -7,7 +7,7 @@ app_name = 'app_main_site'
 urlpatterns = [
     path("", views.home, name="home"),
     path("profile/", views.profile, name="profile"),
-    path("profile/update", views.UpdateProfile.as_view(), name="update_profile"),
+    path("profile/update", views.update_profile, name="update_profile"),
 
     path('registration/', views.custom_registration, name='registration'),
     path('login/', views.custom_login, name='login'),
